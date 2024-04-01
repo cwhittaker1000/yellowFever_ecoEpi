@@ -11,6 +11,7 @@ library(tidyverse); library(anytime); library(incidence2); library(truncdist);
 ###    Can I treat the 4 above as the same i.e. that they were identified through non-notification routes and hence no collection was made?
 ### What does "Não tem ou Positivo" mean for IHQ and PCR results? Same with Positivo ou Amostra inadequada - sem fígado.
 ###   ==> I ask this because monkeys with ID 66 and 67 have "Não tem ou Positivo" for IHQ and PCR but have been assigned positive - what should I do here?
+### Some with the ambiguous dates = could be either of them (thinking the ones that are like "24th October or 24th December")
 
 ## Data dictionary
 ## ID - individual sample ID
