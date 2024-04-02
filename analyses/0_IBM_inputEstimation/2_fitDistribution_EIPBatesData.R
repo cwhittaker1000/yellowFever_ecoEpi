@@ -46,10 +46,11 @@ fit_babies <- sampling(model_gamma, data = data_stan_babies, iter = 2000, chains
 summary(fit_babies)
 
 ## Adults fit
-data_stan_adults <- list(N = length(degrees30_df_adults$days),
-                         day = degrees30_df_adults$days,
-                         infected = degrees30_df_adults$total,
-                         died = degrees30_df_adults$mod,
+## need to decide whether to keep day 7 (spuriously low) or not
+data_stan_adults <- list(N = length(degrees30_df_adults$days[degrees30_df_adults$days != 7]),
+                         day = degrees30_df_adults$days[degrees30_df_adults$days != 7],
+                         infected = degrees30_df_adults$total[degrees30_df_adults$days != 7],
+                         died = degrees30_df_adults$mod[degrees30_df_adults$days != 7],
                          a_1 = 0.1,
                          a_2 = 10,
                          b_1 = 0.1,
