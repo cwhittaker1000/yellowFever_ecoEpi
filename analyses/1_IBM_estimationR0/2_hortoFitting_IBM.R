@@ -48,6 +48,9 @@ latent_period_gamma_rate <- mean(rstan::extract(latent_period_fit, "b")[[1]]) # 
 infectious_period_fit <- readRDS("analyses/0_IBM_inputEstimation/outputs/infectious_deathDist_stanFit.rds")
 infectious_period_gamma_shape <- mean(rstan::extract(infectious_period_fit, "a")[[1]]) # note exp used here and gamma below, but if shape set to 1, then is an exponential
 infectious_period_gamma_rate <- mean(rstan::extract(infectious_period_fit, "b")[[1]]) # note exp used here and gamma below, but if shape set to 1, then is an exponential
+EIP_gamma_fit <- readRDS("analyses/0_IBM_inputEstimation/outputs/EIP_adultMice_gammaParams.rds")
+EIP_gamma_shape <- EIP_gamma_fit$gamma_a
+EIP_gamma_rate <- EIP_gamma_fit$gamma_b
 
 N <- 86 - 3 # (3 negative monkeys - assume the rest not in database killed by yellow fever)
 past_length_max <- 15
@@ -66,8 +69,8 @@ parameters_list <- list(seed = 15,
                         death_observation_gamma_shape = 1, 
                         death_observation_gamma_rate = death_observation_gamma_rate,
                         past_length = past_length_max, 
-                        past_weightings_vector = rev(dgamma(1:past_length_max, shape = 6.9 * 0.5, rate = 0.5)), # from Kraemer et al (Aedes)
-                        # past_weightings_vector = rev(dgamma(1:past_length_max, shape = 10 * 0.5, rate = 0.5)), # from Bates and Roca-Garcia 1946
+                        past_weightings_vector = rev(dgamma(1:past_length_max, shape = EIP_gamma_shape, rate = EIP_gamma_rate)), # from re-analysis of Bates and Roca-Garcia 1946
+                        ### does this need to be 0:past_length_max and do I need to be changing the structure of lagged vector in model to account for this?
                         lagged_I_input = NULL)
 
 # Model fitting 

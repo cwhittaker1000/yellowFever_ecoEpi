@@ -72,6 +72,8 @@ degrees30_df_babies$perc_mod <- (degrees30_df_babies$perc - pmin_babies) / (pmax
 x <- seq(0, 20, by = 0.01)
 modelled_a <- mean(rstan::extract(fit_babies, "a")[[1]])
 modelled_b <- mean(rstan::extract(fit_babies, "b")[[1]])
+saveRDS(object = data.frame(gamma_a = modelled_a, gamma_b = modelled_b),
+        file = "analyses/0_IBM_inputEstimation/outputs/EIP_babyMice_gammaParams.rds")
 cdf_values <- pgamma(x, shape = modelled_a, rate = modelled_b)
 plot(degrees30_df_babies$days, degrees30_df_babies$perc, ylim = c(0, 1), type = "l",
      xlab = "Time (Days)", ylab = "Mouse Mortality", main = "Mouse Mortality")
@@ -88,6 +90,8 @@ degrees30_df_adults$perc_mod <- (degrees30_df_adults$perc - pmin_adults) / (pmax
 x <- seq(0, 20, by = 0.01)
 modelled_a <- mean(rstan::extract(fit_adults, "a")[[1]])
 modelled_b <- mean(rstan::extract(fit_adults, "b")[[1]])
+saveRDS(object = data.frame(gamma_a = modelled_a, gamma_b = modelled_b),
+        file = "analyses/0_IBM_inputEstimation/outputs/EIP_adultMice_gammaParams.rds")
 cdf_values <- pgamma(x, shape = modelled_a, rate = modelled_b)
 plot(degrees30_df_adults$days, degrees30_df_adults$perc, ylim = c(0, 1), type = "l",
      xlab = "Time (Days)", ylab = "Mouse Mortality", main = "Mouse Mortality")
@@ -149,6 +153,8 @@ x <- seq(0, 20, by = 0.01)
 modelled_a <- mean(rstan::extract(fit_babies_offset, "a")[[1]])
 modelled_b <- mean(rstan::extract(fit_babies_offset, "b")[[1]])
 modelled_offset <- mean(rstan::extract(fit_babies_offset, "offset")[[1]])
+saveRDS(object = data.frame(gamma_a = modelled_a, gamma_b = modelled_b, offset = modelled_offset),
+        file = "analyses/0_IBM_inputEstimation/outputs/EIP_babyMice_gammaOffset_Params.rds")
 cdf_values <- pgamma(x, shape = modelled_a, rate = modelled_b)
 plot(degrees30_df_babies$days, degrees30_df_babies$perc, ylim = c(0, 1), type = "l",
      xlab = "Time (Days)", ylab = "Mouse Mortality", main = "Mouse Mortality")
@@ -166,6 +172,8 @@ x <- seq(0, 20, by = 0.01)
 modelled_a <- mean(rstan::extract(fit_adults_offset, "a")[[1]])
 modelled_b <- mean(rstan::extract(fit_adults_offset, "b")[[1]])
 modelled_offset <- mean(rstan::extract(fit_adults_offset, "offset")[[1]])
+saveRDS(object = data.frame(gamma_a = modelled_a, gamma_b = modelled_b, offset = modelled_offset),
+        file = "analyses/0_IBM_inputEstimation/outputs/EIP_adultMice_gammaOffset_Params.rds")
 cdf_values <- pgamma(x, shape = modelled_a, rate = modelled_b)
 plot(degrees30_df_adults$days, degrees30_df_adults$perc, ylim = c(0, 1), type = "l",
      xlab = "Time (Days)", ylab = "Mouse Mortality", main = "Mouse Mortality")
